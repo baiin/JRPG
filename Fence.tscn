@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Base.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 7.308, 30.719 )
+
+[node name="Fence" type="StaticBody2D"]
+position = Vector2( -0.339604, -1.90735e-05 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 1.52588e-05, -26.8297 )
+texture = ExtResource( 1 )
+region_enabled = true
+region_rect = Rect2( 192, 960, 64, 64 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 3.8147e-06, -2.71697 )
+rotation = 1.5708
+shape = SubResource( 1 )
