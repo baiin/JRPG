@@ -1,16 +1,14 @@
 extends Node2D
 
+onready var global = $"/root/Global"
+onready var player = $YSort/Player
+onready var homeDoor = $HomeDoor
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	if global.last_scene_entered != null && global.last_outdoor_position != null:
+		player.position.x = global.last_outdoor_position.x
+		player.position.y = global.last_outdoor_position.y + 32
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_HomeDoor_body_entered(_body):
+	global.last_outdoor_position = player.position
+	get_tree().change_scene("res://HomeInterior.tscn")

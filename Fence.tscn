@@ -5,7 +5,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.308, 30.719 )
 
-[node name="Fence" type="StaticBody2D"]
+[node name="Fence" type="StaticBody2D" groups=[
+"Fences",
+]]
 position = Vector2( -0.339604, -1.90735e-05 )
 __meta__ = {
 "_edit_group_": true
