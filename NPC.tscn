@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://NPC.gd" type="Script" id=1]
+[ext_resource path="res://Characters/2.png" type="Texture" id=2]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 5.14627
+height = 9.3872
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 1.54057, 5.31113, 0, 0, 0, 0, -0.256134, 37.2027, 0, 0, 0, 0, 55.4418, 52.0256, 0, 0, 0, 0, 112.937, 29.5667, 0, 0, 0, 0, 113.386, 7.55701, 0, 0, 0, 0, 1.54057, 5.31113 )
+}
+
+[node name="NPC" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.135899, -24.8689 )
+texture = ExtResource( 2 )
+vframes = 4
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.407688, 1.16957 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource( 2 )
