@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://World.gd" type="Script" id=1]
 [ext_resource path="res://[A]_type3/[A]Dirt2_pipo.png" type="Texture" id=2]
@@ -510,6 +510,8 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="AnimationNodeStateMachinePlayback" id=51]
+
 [node name="World" type="Node2D"]
 script = ExtResource( 1 )
 
@@ -543,7 +545,7 @@ polygon = PoolVector2Array( 608, 296, 640, 296, 640, 336, 608, 336 )
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Player" parent="YSort" instance=ExtResource( 4 )]
-position = Vector2( 272, 432 )
+position = Vector2( 544, 400 )
 
 [node name="Fence" parent="YSort" instance=ExtResource( 7 )]
 position = Vector2( 64, 192 )
@@ -569,6 +571,12 @@ tile_data = PoolIntArray( 196624, 2, 0, 196625, 2, 0, 196626, 2, 0, 196627, 2, 0
 [node name="NPC" parent="YSort" instance=ExtResource( 9 )]
 position = Vector2( 552, 512 )
 
+[node name="Sprite" parent="YSort/NPC" index="0"]
+frame = 0
+
+[node name="AnimationTree" parent="YSort/NPC" index="3"]
+parameters/playback = SubResource( 51 )
+
 [node name="NPC2" parent="YSort" instance=ExtResource( 9 )]
 position = Vector2( 120, 512 )
 
@@ -578,3 +586,5 @@ position = Vector2( 112, 320 )
 [node name="NPC4" parent="YSort" instance=ExtResource( 9 )]
 position = Vector2( 672, 368 )
 [connection signal="body_entered" from="HomeDoor" to="." method="_on_HomeDoor_body_entered"]
+
+[editable path="YSort/NPC"]

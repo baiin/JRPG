@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Home.tscn" type="PackedScene" id=1]
 [ext_resource path="res://HomeInterior.gd" type="Script" id=2]
@@ -6,9 +6,12 @@
 [ext_resource path="res://NPC.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Path2D.gd" type="Script" id=5]
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 32, 10 )
+
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 424.673, 668.034, 0, 0, 0, 0, 422.877, 478.833, -11.3445, -18.2772, 11.3445, 18.2772, 506, 489, -19.5377, -10.084, 19.5377, 10.084, 531, 553, -25.21, 9.45374, 25.21, -9.45374, 654, 556, 21.4285, 8.19324, -21.4285, -8.19324, 655.786, 365.672, 18.9075, -17.647, -18.9075, 17.647, 517, 377, 25.21, -18.9075, -25.21, 18.9075, 507, 452, 0, 0, 0, 0, 423.476, 461.47, 13.9281, 17.0232, -13.9281, -17.0232, 419.927, 192.835, 7.73781, 22.4396, -7.73781, -22.4396, 207, 204, -23.2134, 9.28537, 23.2134, -9.28537, 195.366, 108.053, -10.0592, -5.41647, 10.0592, 5.41647, 333.87, 108.053, 0, 0, 0, 0, 343.842, 170.103, -14.7018, -15.4756, 14.7018, 15.4756, 418.08, 174.535, 0, 0, 0, 0, 424.673, 668.034 )
+"points": PoolVector2Array( 0, 0, 0, 0, 424.673, 668.034, 0, 0, 0, 0, 424, 664, 0, 0, 0, 0, 424, 472, 0, 0, 0, 0, 520, 472, 0, 0, 0, 0, 520, 368, 0, 0, 0, 0, 736, 368, 0, 0, 0, 0, 736, 472, 0, 0, 0, 0, 656, 472, 0, 0, 0, 0, 656, 552, 0, 0, 0, 0, 520, 552, 0, 0, 0, 0, 520, 472, 0, 0, 0, 0, 424, 472, 0, 0, 0, 0, 424, 664 )
 }
 
 [node name="HomeInterior" type="Node2D"]
@@ -19,8 +22,9 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
-polygon = PoolVector2Array( 397.942, 615.798, 445.142, 618.119, 447.464, 636.69, 387.883, 638.237, 387.109, 615.798 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 416, 632 )
+shape = SubResource( 2 )
 
 [node name="YSort" type="YSort" parent="."]
 
@@ -30,15 +34,22 @@ tile_data = PoolIntArray( 65537, 11, 0, 65538, 13, 0, 65541, 9, 0, 65543, 13, 0,
 [node name="Player" parent="YSort" instance=ExtResource( 3 )]
 position = Vector2( 418.425, 573.136 )
 
-[node name="Path2D" type="Path2D" parent="."]
+[node name="NPC" parent="YSort" instance=ExtResource( 4 )]
+position = Vector2( 424.673, 668.034 )
+
+[node name="Path" type="Node2D" parent="."]
+
+[node name="Path2D" type="Path2D" parent="Path"]
 curve = SubResource( 1 )
 script = ExtResource( 5 )
 
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+[node name="PathFollow2D" type="PathFollow2D" parent="Path/Path2D"]
 position = Vector2( 424.673, 668.034 )
-rotation = -1.58027
+rotation = -1.58029
+rotate = false
 
-[node name="NPC" parent="Path2D/PathFollow2D" instance=ExtResource( 4 )]
-position = Vector2( -16.9591, -0.834015 )
-rotation = 1.58027
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path/Path2D/PathFollow2D"]
+remote_path = NodePath("../../../../YSort/NPC")
+update_rotation = false
+update_scale = false
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

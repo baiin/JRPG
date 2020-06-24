@@ -1,0 +1,71 @@
+[gd_scene load_steps=15 format=2]
+
+[sub_resource type="AnimationNodeAnimation" id=1]
+animation = "IdleDown"
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "IdleUp"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "IdleRight"
+
+[sub_resource type="AnimationNodeAnimation" id=4]
+animation = "IdleLeft"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=5]
+blend_point_0/node = SubResource( 1 )
+blend_point_0/pos = Vector2( 0, 1 )
+blend_point_1/node = SubResource( 2 )
+blend_point_1/pos = Vector2( 0, -1 )
+blend_point_2/node = SubResource( 3 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 4 )
+blend_point_3/pos = Vector2( -1, 0 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id=6]
+animation = "WalkDown"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "WalkUp"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "WalkRight"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "WalkLeft"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id=10]
+blend_point_0/node = SubResource( 6 )
+blend_point_0/pos = Vector2( 0, 1.1 )
+blend_point_1/node = SubResource( 7 )
+blend_point_1/pos = Vector2( 0, -1.1 )
+blend_point_2/node = SubResource( 8 )
+blend_point_2/pos = Vector2( 1, 0 )
+blend_point_3/node = SubResource( 9 )
+blend_point_3/pos = Vector2( -1, 0 )
+min_space = Vector2( -1, -1.1 )
+max_space = Vector2( 1, 1.1 )
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachine" id=13]
+states/Idle/node = SubResource( 5 )
+states/Idle/position = Vector2( 237, 77 )
+states/Walk/node = SubResource( 10 )
+states/Walk/position = Vector2( 449, 77 )
+transitions = [ "Idle", "Walk", SubResource( 11 ), "Walk", "Idle", SubResource( 12 ) ]
+start_node = "Idle"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=14]
+
+[node name="AnimationTree" type="AnimationTree"]
+tree_root = SubResource( 13 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 14 )
+parameters/Idle/blend_position = Vector2( 0.338346, 0.215517 )
+parameters/Walk/blend_position = Vector2( -0.00501251, 0.947399 )

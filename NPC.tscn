@@ -1,23 +1,15 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://NPC.gd" type="Script" id=1]
 [ext_resource path="res://Characters/2.png" type="Texture" id=2]
+[ext_resource path="res://AnimationTree.tscn" type="PackedScene" id=3]
+[ext_resource path="res://AnimationPlayer.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.14627
 height = 10.854
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 2.89478, 18.7852 )
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 2.89477, 19.3373 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 8.67998, 2.18781 )
-
-[sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 8, 2.02859 )
+[sub_resource type="AnimationNodeStateMachinePlayback" id=2]
 
 [node name="NPC" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -27,36 +19,16 @@ position = Vector2( 0.135899, -24.8689 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 4
+frame = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -0.407688, 1.16957 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="LeftArea" type="Area2D" parent="."]
+[node name="AnimationPlayer" parent="." instance=ExtResource( 4 )]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftArea"]
-position = Vector2( -16, -16 )
-shape = SubResource( 2 )
-
-[node name="RightArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightArea"]
-position = Vector2( 15.2742, -16.3783 )
-shape = SubResource( 5 )
-
-[node name="TopArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TopArea"]
-position = Vector2( 0, -40 )
-shape = SubResource( 3 )
-
-[node name="BottomArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BottomArea"]
-position = Vector2( 0.465187, 8.27091 )
-shape = SubResource( 4 )
-[connection signal="body_entered" from="LeftArea" to="." method="_on_LeftArea_body_entered"]
-[connection signal="body_entered" from="RightArea" to="." method="_on_RightArea_body_entered"]
-[connection signal="body_entered" from="TopArea" to="." method="_on_TopArea_body_entered"]
-[connection signal="body_entered" from="BottomArea" to="." method="_on_BottomArea_body_entered"]
+[node name="AnimationTree" parent="." instance=ExtResource( 3 )]
+parameters/playback = SubResource( 2 )
+parameters/Idle/blend_position = Vector2( 0, 0 )
+parameters/Walk/blend_position = Vector2( 0, 0 )
